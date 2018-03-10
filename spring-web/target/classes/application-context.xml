@@ -7,7 +7,70 @@
 	http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context.xsd">
 	
+	<!-- Use Annotation to config beans-->
+	<context:component-scan base-package="com.netease.course.container.test" />
+	
+	<bean id="screwDriver" class="com.netease.course.container.test.ScrewDriver">
+	</bean>
+	
+	<!-- Add ScrewDriver dependency Header
 	<bean id="screwDriver" class="com.netease.course.container.test.ScrewDriver" 
 	scope="singleton"
-	init-method="init" destroy-method="cleanup"></bean>
+	init-method="init" destroy-method="cleanup">
+		<constructor-arg>
+			<ref bean="header" />
+		</constructor-arg>
+	</bean>
+	-->
+	
+	<!-- Use autowire to add ScrewDriver dependency Header; "byName""byType""constructor"
+	<bean id="screwDriver" class="com.netease.course.container.test.ScrewDriver"
+		autowire="byName">
+	</bean>
+	-->
+	
+	<!-- Use construct function to inject arguments
+	<bean id="header" class="com.netease.course.container.test.StraightHeader">
+		<constructor-arg value="red"></constructor-arg>
+		<constructor-arg value="15"></constructor-arg>
+	</bean>
+	-->
+	
+	<!-- Use Map to inject arguments
+	<bean id="header" class="com.netease.course.container.test.StraightHeader">
+		<constructor-arg>
+			<entry key="color" value="red"></entry>
+			<entry key="size" value="14"></entry>
+		</constructor-arg>
+	</bean>
+	-->
+	
+	<!-- Use properties to inject arguments
+	<bean id="header" class="com.netease.course.container.test.StraightHeader">
+		<constructor-arg>
+			<prop key="color">red</prop>
+			<prop key="size">14</prop>
+		</constructor-arg>
+	</bean>
+	-->
+	
+	<!-- User setter methods to inject arguments
+	<bean id="header" class="com.netease.course.container.test.StraightHeader">
+		<property name="color" value="${color}"></property>
+		<property name="size" value="${size}"></property>
+	</bean>
+	-->
+	
+	<!-- Use property document to inject arguments
+	<bean id="header" class="com.netease.course.container.test.StraightHeader">
+		<constructor-arg name="color" value="${color}"></constructor-arg>
+		<constructor-arg name="size" value="${size}"></constructor-arg>
+	</bean>
+	-->
+	
+	<bean id="headerProperties"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location" value="classpath:header.properties" />
+	</bean>
+	
 </beans>
