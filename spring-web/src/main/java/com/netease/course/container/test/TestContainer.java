@@ -9,12 +9,12 @@ public class TestContainer {
 	public static void main(String[] args) {
 		ApplicationContext context=new ClassPathXmlApplicationContext("application-context.xml");
 		
-		ScrewDriver screwDriver=context.getBean("screwDriver", ScrewDriver.class);
-		screwDriver.setColor("green");
-		screwDriver.use();
+		Header header = context.getBean("header", StraightHeader.class);
+		System.out.println(header.getInfo());
+		header.doWork();
 		
-		ScrewDriver screwDriver1=context.getBean("screwDriver", ScrewDriver.class);
-		screwDriver1.use();
+		ScrewDriver screwDriver = context.getBean("screwDriver", ScrewDriver.class);
+		screwDriver.use();
 		
 		((ConfigurableApplicationContext)context).close();
 	}

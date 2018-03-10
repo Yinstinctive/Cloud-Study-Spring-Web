@@ -1,22 +1,33 @@
 package com.netease.course.container.test;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
+
 public class ScrewDriver {
-	private String color = "red";
+//	@Resource
+	@Autowired
+	private Header header;
 	
-	public void use() {
-		System.out.println("Use "+color+" screwdriver");
+	public ScrewDriver() {}
+	
+	public ScrewDriver(Header header) {
+		this.header=header;
 	}
 	
-	public void setColor(String color) {
-		this.color=color;
-		System.out.println("Set screwdriver color to "+color);
+//	public void setHeader(Header header) {
+//		this.header=header;
+//	}
+	
+	public void use() {
+		System.out.println("Use header: "+ header.getInfo());
+		header.doWork();
 	}
 	
 	public void init() {
-		System.out.println("Init screwdriver, the init color is "+color);
+		System.out.println("Init screwdriver");
 	}
 	
 	public void cleanup() {
-		System.out.println("Destroy screwdriver, the destroyed screwdriver color is "+color);
+		System.out.println("Destroy screwdriver");
 	}
 }
